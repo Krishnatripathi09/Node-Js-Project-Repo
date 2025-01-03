@@ -1,0 +1,17 @@
+"express": "^4.21.2"
+
+when we install a dependency it is installed with some version the first 
+digit in version (4) means major update verison which is not backward compatible and it can 
+break our app if we install the major verison in our app which is running on minor version
+for eg: we are using version 4.x.x in our app and we install 5.x.x version so it represents some major update 
+in our app and it could break our application
+
+The second digits (21) represents minor updates which can be installed in our app and wil not do any harm 
+The third digits (2) represents patch updates which are also safe to install in our app and will
+not do any harm.
+
+(^) symbol means our app can accept minor and path updates without any issue 
+(~) symbol means our app avoids version updates that could introduce new features or bugs
+
+while pacakage.json is flexible with installing new minor updates or patch versions but pacakage.lock.json
+will install exact version of the app and will not accept any changes in its version minor or major
