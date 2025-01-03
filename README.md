@@ -70,3 +70,11 @@ app.use("/", (req, res) => {
 
 
 Now in above case all routes will work as we have changes the order of execution of routes
+
+In above Api route we have used app.use so it will match all the routes like get,put,post or delete 
+but to to match the specific route we have to use app.get 
+
+if we swap the order of (req, res) writing req and res in parameters then it will thorow error because
+req Contains information about the HTTP request, such as headers, query parameters, and the request body.
+and res is Used to send the HTTP response back to the client.
+so if we swap the order of writing them it will throw an error  because the res object doesn't have the properties and methods expected for a request object, and vice versa.

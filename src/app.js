@@ -5,13 +5,16 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 
-app.use("/test", (req, res) => {
-  res.send("Hello World");
-});
-app.use("/hi", (req, res) => {
-  res.send("Hello Page ba");
+// This will only listen to GET call on port 3000
+app.get("/user", (req, res) => {
+  res.send({ firstName: "Krishna", lastName: "Tripathi" });
 });
 
-app.use("/", (req, res) => {
-  res.send("Namaste World");
+//Post the data to Server
+app.post("/user", (req, res) => {
+  res.send("Data saved succcessfully to server");
+});
+
+app.delete("/user", (req, res) => {
+  res.send("User deleted successfully");
 });
