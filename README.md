@@ -97,3 +97,17 @@ we can also write(*) opeartor in path and it means unless and until starting and
 # () group Operator 
 Here we can use () to group some characters in path for eg: if we have path "/test/a(bc)?d then even if we do not
 write the bc in our path it will hit the correct path as we made the bc optional in our path"/test/ad"
+We Can also Write REGEX in our Api paths to make more Dynamic
+
+# Read the Query Params
+We can read the query params in our api by using req.query for eg: if we have a path /ab?c then we can 
+add console.log(res.query) in its body and in post man we can add some query params which will be printed 
+in our Console
+
+# Params 
+We can also add Dynamic routes by using "/abc/:user" so here (:) giving colon we can add dynamic path 
+and we can read it by using req.params so here userId is the dynamic path which we are accessing.
+for eg (app.get("/users/:userId", (req, res) => {
+  console.log(req.params);
+  res.send({ firstName: "YTU", lastName: "Tripathi" });
+});)

@@ -7,6 +7,7 @@ app.listen(3000, () => {
 
 // This will only listen to GET call on port 3000
 app.get("/ab?c", (req, res) => {
+  console.log(req.query);
   res.send({ firstName: "Krishna", lastName: "Tripathi" });
 }); //make path optional using (?)
 app.get("/a*e", (req, res) => {
@@ -20,6 +21,11 @@ app.get("/ab+c", (req, res) => {
 app.get("/a(bcd)?e", (req, res) => {
   res.send({ firstName: "Trishna", lastName: "Tripathi" });
 }); // here we have used parenthesis to make many letter in path optional by adding (?) in path
+
+app.get("/users/:userId", (req, res) => {
+  console.log(req.params);
+  res.send({ firstName: "YTU", lastName: "Tripathi" });
+});
 
 //Post the data to Server
 app.post("/user", (req, res) => {
