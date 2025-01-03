@@ -118,5 +118,84 @@ as we have not set any response in our call :for eg: "app.use("/user", (req, res
  //No Reponse
 });"
 
+we can wrap our responses in array and then send them like below if we have many responses 
+app.use("/user", [
+  (req, res, next) => {
+    console.log("I am first response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am second response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am third response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am 4th response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am 5th response");
+    next();
+  },
+]);
 
+or we can wrap 2 or 3 or 4 responses in an array then we can send them 
+for eg:
+app.use("/user", [
+  (req, res, next) => {
+    console.log("I am first response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am second response");
+    next();
+  },],
+  (req, res, next) => {
+    console.log("I am third response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am 4th response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am 5th response");
+    next();
+  },
+);
 
+we can use the routes like this in any http method Get,put,post and delete ,patch
+
+next() function  : It is a callback function that passes control to the next middleware function in the request-response cycle. Without calling next(), the request will not proceed to the next middleware or route handler.
+
+for eg: (req, res, next) => {
+    console.log("I am first response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am second response");
+    res.send("send the response )
+  },
+
+  if we do not add next() function the control will not be passed to next route handler and as first 
+  handler does not have any reponse the api call to this path will run like an infinite loop 
+
+  # MiddleWare Functions
+Middleware in Express.js is any function that has access to the req, res, and next objects and is used to handle a part of the request-response cycle.
+Middleware functions can be chained using next(), but only one function should send a response (e.g., res.send(), res.json(), etc.).
+If you don't call next() in a middleware, the next middleware or route handler will not be executed.
+If you use res.send() in a middleware, the request-response cycle ends, and subsequent middleware or handlers are not executed.
+
+    For eg: (req, res, next) => {
+    console.log("I am first response");
+    next();
+  },
+  (req, res, next) => {
+    console.log("I am second response");
+    res.send("send the response )
+  },
+
+  function which actually send the response back are known as response handlers 
