@@ -111,3 +111,12 @@ for eg (app.get("/users/:userId", (req, res) => {
   console.log(req.params);
   res.send({ firstName: "YTU", lastName: "Tripathi" });
 });)
+
+
+If we do not put any response inside our Route then the request from postman will run like an infinite loop 
+as we have not set any response in our call :for eg: "app.use("/user", (req, res) => {
+ //No Reponse
+});"
+
+
+
