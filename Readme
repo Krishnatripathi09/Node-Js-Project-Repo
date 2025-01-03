@@ -19,3 +19,9 @@ will install exact version of the app and will not accept any changes in its ver
 installed nodemon globally (npm install -g nodemon) to refresh our app as soon as we do some changes in our app
 now we run our app using nodemon src/app.js. We can use nodemon from any directory as we have installed 
 it globally
+
+we can add a script in package.json to run our app just using npm run dev as we have add the 
+scripts ""scripts": {
+    "start":"node src/app.js",
+    "dev":"nodemon src/app.js"
+  }" in our package.json file
