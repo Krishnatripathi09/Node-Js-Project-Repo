@@ -78,3 +78,22 @@ if we swap the order of (req, res) writing req and res in parameters then it wil
 req Contains information about the HTTP request, such as headers, query parameters, and the request body.
 and res is Used to send the HTTP response back to the client.
 so if we swap the order of writing them it will throw an error  because the res object doesn't have the properties and methods expected for a request object, and vice versa.
+
+# Optional Chaining in Api Path
+
+In our routes we can make our path as optional by putting a question mark for example if we have a path 
+"/test/abc" then we can make the path optional by using a question mark after the path like "/test/ab?c"
+so here b is optional like if we write the full path on postman to this path it will work "/test/abc" but if we 
+write it like "/test/ac" then it will also point to that path as we have kept b as optional
+
+# + Opeartor in Path
+We can also add (+) operator in path so we can add multiple letter in front of which we have added+ (bbbb) in our path unless starting and ending letter is same
+for eg: "/test/ab+c" so if try to acess the path like "/test/abbbbbbbbbbc" then as well it will work
+
+# * Opeartor in Path
+we can also write(*) opeartor in path and it means unless and until starting and ending letters match we can give anything in between the path for eg: we have path "/test/abccd/" then we can write it like
+/test/a*d/ and it will hit the path
+
+# () group Operator 
+Here we can use () to group some characters in path for eg: if we have path "/test/a(bc)?d then even if we do not
+write the bc in our path it will hit the correct path as we made the bc optional in our path"/test/ad"
