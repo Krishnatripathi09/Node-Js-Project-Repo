@@ -198,4 +198,6 @@ If you use res.send() in a middleware, the request-response cycle ends, and subs
     res.send("send the response )
   },
 
-  function which actually send the response back are known as response handlers 
+  function which actually send the response back are known as response handlers.
+
+  To export anything in node js as default export we have to export it using module.exports={adminAuth} then we can import it like  const { adminAuth } = require("./middlewares/auth");
