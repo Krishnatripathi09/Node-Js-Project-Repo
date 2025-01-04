@@ -201,3 +201,25 @@ If you use res.send() in a middleware, the request-response cycle ends, and subs
   function which actually send the response back are known as response handlers.
 
   To export anything in node js as default export we have to export it using module.exports={adminAuth} then we can import it like  const { adminAuth } = require("./middlewares/auth");
+
+  # Connecting to DataBase 
+  Use the connection string "mongodb://user:password@localhost:27017/mydatabase?authSource=admin"
+to connect to database and we are going to use mongoose to connect to Database
+const mongoose = require("mongoose");
+
+const connectDB = async () => {
+  await mongoose.connect(
+    "mongodb://user:password@localhost:27017/mydatabase?authSource=admin"
+  );
+};
+connectDB()
+  .then(() => {
+    console.log("connected to database :)");
+  })
+  .catch((err) => {
+    console.log("Database connection Failed:", err);
+  });
+
+so to connect to our databse we installed mongoose and passed our connection string inside mongoose.connect
+which is used to connect to data base as mongoose.connect will return a promise we have awaited it and wrapped it inside a async function and then called the function which would then connect to databse or throw 
+an error based on output it gets.
