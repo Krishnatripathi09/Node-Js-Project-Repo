@@ -260,3 +260,23 @@ default exports.
 For eg:const userModel = mongoose.model("User", userSchema);
 module.exports = userModel;
 or we can directly export it like module.exports = mongoose.model("User", userSchema);
+
+Next to create a User in our Schema we have used the post method with the user Details like below
+app.post("/signup", (req, res) => {
+  const userObj = {
+    firstName: "Krishna Tripathi",
+    lastName: "Tripathi",
+    emailId: "krish@789.com",
+    password: "krish@678",
+  };
+
+const user = new User(userObj); // Creating the new instance of the UserModel by passing the data of the userObj
+  await user.save();
+   res.send("User Created in DataBase ");
+});
+
+we have created a user and we have put that user in userObj and then we have passed the userObj in our User Model
+to create a new instance of the User Model and then we have saved that instance in our database using user.save
+Now to create our User in DB we have to make a Post API call to signUp and once we make the API call successfully
+the user will be created in the DataBase successfully. we have also added a res.send to send a success response 
+once the post request is made successfully 
