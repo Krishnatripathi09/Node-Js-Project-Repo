@@ -223,3 +223,40 @@ connectDB()
 so to connect to our databse we installed mongoose and passed our connection string inside mongoose.connect
 which is used to connect to data base as mongoose.connect will return a promise we have awaited it and wrapped it inside a async function and then called the function which would then connect to databse or throw 
 an error based on output it gets.
+
+We have connected to database after starting our server but in Actual scenarios this is a bad way to connect to database after server is started. first our server should connect to database then the server should be started as users might start to send API calls before our server actually starts that's why now we are exporting our code in databse.js file and call the connect to database function before server starts in app.js 
+"const connetDB = require("./config/database");
+const express = require("express"); //we have installed express in our project and it is installed in Node_module so we are importing it from there
+
+const app = express();
+
+connectDB() // Called the function to connect to databse first
+  .then(() => {
+    console.log("connected to database :)");
+    app.listen(3000, () => {
+      console.log("Server is running on port 3000");// Then start the server to listen API Calls
+    });
+  })
+  .catch((err) => {
+    console.log("Database connection Failed:", err);
+  });
+"
+After connecting to database we need to create a userSchema to for our users with below configuration
+"const { mongoose } = require("mongoose");
+
+const userSchema = mongoose.Schema({
+  firstName: { type: String },
+  lastName: { type: String },
+  email: { type: String },
+  Age: { type: Number },
+  password: { type: String },
+  gender: { type: String },
+});
+for which we have created a folder models inside that we have create our user.js file to create the schema.
+Once we have created our schema we have to create mongoose model( Table )to start using our schema as we have
+created our schema for Users then we will create a User model(Table) with defined schema configuration.
+we can create the model (Table) using mongoose.model("TableName",schemaForTable) and then export it using
+default exports.
+For eg:const userModel = mongoose.model("User", userSchema);
+module.exports = userModel;
+or we can directly export it like module.exports = mongoose.model("User", userSchema);
