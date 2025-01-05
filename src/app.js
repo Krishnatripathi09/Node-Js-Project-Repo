@@ -56,6 +56,19 @@ app.delete("/user", async (req, res) => {
   }
 });
 
+//Feed API -Patch /feed- update the data of user with userID
+app.patch("/user", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+  console.log(data);
+  try {
+    await User.findByIdAndUpdate({ _id: userId }, data);
+    res.send("User Updated Successfully!");
+  } catch {
+    res.status(400).send("Error Updating User Info :(");
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("connected to database :)");
