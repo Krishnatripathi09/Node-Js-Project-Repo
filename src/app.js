@@ -1,18 +1,33 @@
 const connectDB = require("./config/database");
 const express = require("express"); //we have installed express in our project and it is installed in Node_module so we are importing it from there
 const app = express();
+const { validateSignUpData } = require("./utils/validation");
+const bcrypt = require("bcrypt");
 const User = require("./models/user");
 
 app.use(express.json());
 app.post("/signup", async (req, res) => {
-  // Creating the new instance of the  User Model by passing the data of that Model
-  const user = new User(req.body);
-
+  //validation of data
   try {
+    validateSignUpData(req);
+
+    const { firstName, lastName, email, password, gender } = req.body;
+    //Encrypt The Password
+    const passwordHash = await bcrypt.hash(password, 10);
+    console.log(passwordHash);
+    // Creating the new instance of the  User Model by passing the data of that Model
+    const user = new User({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      gender,
+    });
+
     await user.save();
     res.send("User Created in DataBase :)");
   } catch (err) {
-    res.status(400).send("Error Saving the User Info :(" + err.message);
+    res.status(400).send("ERROR: " + err.message);
   }
 });
 

@@ -353,7 +353,7 @@ we have used the findByIdAndDelete() method from mongoose to delete the user
 
 # Setting up Schema Validation
 
-We can set the schema validations on our DB Fields from "https://mongoosejs.com/docs/schematypes.html" schemaTypes vlaidations and we can also install and use Validator package from npm for setting 
+We can set the schema validations on our DB Fields from "https://mongoosejs.com/docs/schematypes.html" schemaTypes validations and we can also install and use Validator package from npm for setting 
 custom validations for any field: 
 for eg: email: {
       type: String,
@@ -367,3 +367,8 @@ for eg: email: {
         }
       }
     },
+
+After custom validation in user Schema we have also created a validation file to validate the datapassed into
+schema properly and then used those validations in our Post method. 
+# Password Hashing
+To hash our passwords we have used an external library from Npm known as bcrypt 
