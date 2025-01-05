@@ -16,6 +16,35 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+//Get User by email
+
+app.get("/user", async (req, res) => {
+  const userEmail = req.body.email;
+
+  const user = await User.findOne({ email: userEmail });
+  res.send(user);
+  // try {
+  //   const user = await User.find({ email: userEmail });
+  //   if (user.length === 0) {
+  //     res.status(404).send("User Not Found");
+  //   } else {
+  //     res.send(user);
+  //   }
+  // } catch (err) {
+  //   res.status(400).send("Something Went Wrong :(");
+  // }
+});
+
+//Feed API - GET /feed - get all the users from the DataBase
+app.get("/getData", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.send(users);
+  } catch (err) {
+    res.status(400).send("Na milal Be");
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("connected to database :)");

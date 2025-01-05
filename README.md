@@ -315,3 +315,21 @@ app.post("/signup", async (req, res) => {
     res.status(400).send("Error Saving the User Info " + err.message);
   }
 });
+
+After Creating the Post API we can find the users by creating a Get API like Below  
+app.get("/user", async (req, res) => {
+  const userEmail = req.body.email;
+
+  const user = await User.findOne({ email: userEmail });// FindOne Method will return just one User if multiple //users are resgistered with the value we are trying to find the User 
+  res.send(user);
+   try {
+     const user = await User.find({ email: userEmail });// Find method will return all the users that are //registered with the provided email id
+    if (user.length === 0) {
+      res.status(404).send("User Not Found");
+    } else {
+       res.send(user);
+     }
+   } catch (err) {
+     res.status(400).send("Something Went Wrong :");
+   }
+});
