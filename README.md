@@ -349,4 +349,21 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-weh have used the findByIdAndDelete() method from mongoose to delete the user 
+we have used the findByIdAndDelete() method from mongoose to delete the user 
+
+# Setting up Schema Validation
+
+We can set the schema validations on our DB Fields from "https://mongoosejs.com/docs/schematypes.html" schemaTypes vlaidations and we can also install and use Validator package from npm for setting 
+custom validations for any field: 
+for eg: email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      validate(value){
+        if(!validator.isEmail(value)){
+            throw new Error('Invalid email')
+        }
+      }
+    },

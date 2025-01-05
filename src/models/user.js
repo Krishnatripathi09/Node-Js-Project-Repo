@@ -10,8 +10,22 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid email");
+        }
+      },
     },
-    password: { type: String, required: true, minLength: 7 },
+    password: {
+      type: String,
+      required: true,
+      minLength: 7,
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          throw new Error("Enter a Strong Password" + value);
+        }
+      },
+    },
     gender: {
       type: String,
       validate(value) {
