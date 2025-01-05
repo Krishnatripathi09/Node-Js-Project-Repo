@@ -19,9 +19,9 @@ app.post("/signup", async (req, res) => {
 //Get User by email
 
 app.get("/user", async (req, res) => {
-  const userEmail = req.body.email;
+  const userName = req.body._id;
 
-  const user = await User.findOne({ email: userEmail });
+  const user = await User.findOne({ _id: userName });
   res.send(user);
   // try {
   //   const user = await User.find({ email: userEmail });
@@ -42,6 +42,17 @@ app.get("/getData", async (req, res) => {
     res.send(users);
   } catch (err) {
     res.status(400).send("Na milal Be");
+  }
+});
+
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    res.send("User Delted Successfully Bhau !");
+  } catch (err) {
+    res.status(400).send("Error Deleting User Info :(" + err.message);
   }
 });
 

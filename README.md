@@ -299,6 +299,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+# Creating the POST API
 Till now we were hardcoding data in to our post method But Now to handle Dynamic data directly from End-User and
  we have to convert the json data from END-User into readable format we have to convert our json data using app.use(express.json());
 then we can use the data directly in our post method using req.body and it will saved into DB directly if 
@@ -316,6 +317,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+# Creating the Get API
 After Creating the Post API we can find the users by creating a Get API like Below  
 app.get("/user", async (req, res) => {
   const userEmail = req.body.email;
@@ -333,3 +335,18 @@ app.get("/user", async (req, res) => {
      res.status(400).send("Something Went Wrong :");
    }
 });
+
+# Creating the Delete API
+We can delete the user by creating a Delete API like Below
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    res.send("User Delted Successfully Bhau !");
+  } catch (err) {
+    res.status(400).send("Error Deleting User Info :" + err.message);
+  }
+});
+
+weh have used the findByIdAndDelete() method from mongoose to delete the user 
