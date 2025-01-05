@@ -3,17 +3,17 @@ const express = require("express"); //we have installed express in our project a
 const app = express();
 const User = require("./models/user");
 
+app.use(express.json());
 app.post("/signup", async (req, res) => {
-  const userObj = {
-    firstName: "Elon",
-    lastName: "Musk",
-    emailId: "Elon@789.com",
-    password: "Elon@678",
-  };
+  // Creating the new instance of the  User Model by passing the data of that Model
+  const user = new User(req.body);
 
-  const user = new User(userObj); // Creating the new instance of the Model User by passing the data of that Model
-  await user.save();
-  res.send("User Created in DataBase :)");
+  try {
+    await user.save();
+    res.send("User Created in DataBase :)");
+  } catch (err) {
+    res.status(400).send("Error Saving the User Info :(" + err.message);
+  }
 });
 
 connectDB()

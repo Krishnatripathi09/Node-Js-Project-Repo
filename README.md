@@ -279,4 +279,39 @@ we have created a user and we have put that user in userObj and then we have pas
 to create a new instance of the User Model and then we have saved that instance in our database using user.save
 Now to create our User in DB we have to make a Post API call to signUp and once we make the API call successfully
 the user will be created in the DataBase successfully. we have also added a res.send to send a success response 
-once the post request is made successfully 
+once the post request is made successfully.
+Wrapped our user.save in a try catch block to handle any Error if occured:
+
+app.post("/signup", async (req, res) => {
+  const user = new User({
+    firstName: "Elon",
+    lastName: "Musk",
+    emailId: "Elon@789.com",
+    password: "Elon@678",
+  });
+  // Creating the new instance of the Model User by passing the data of that Model
+
+  try {
+    await user.save();
+    res.send("User Created in DataBase ");
+  } catch (err) {
+    res.status(400).send("Error Saving the User Info " + err.message);
+  }
+});
+
+Till now we were hardcoding data in to our post method But Now to handle Dynamic data directly from End-User and
+ we have to convert the json data from END-User into readable format we have to convert our json data using app.use(express.json());
+then we can use the data directly in our post method using req.body and it will saved into DB directly if 
+we hit the post API from PostMan
+app.use(express.json()); //converting the json data into understandable format 
+app.post("/signup", async (req, res) => {
+  // Creating the new instance of the  User Model by passing the data of that Model
+  const user = new User(req.body);//now passing the request body User Model
+
+  try {
+    await user.save();
+    res.send("User Created in DataBase ");
+  } catch (err) {
+    res.status(400).send("Error Saving the User Info " + err.message);
+  }
+});
