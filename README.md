@@ -371,4 +371,24 @@ for eg: email: {
 After custom validation in user Schema we have also created a validation file to validate the datapassed into
 schema properly and then used those validations in our Post method. 
 # Password Hashing
-To hash our passwords we have used an external library from Npm known as bcrypt 
+To hash our passwords we have used an external library from Npm known as bcrypt.
+
+# Login API
+Created a login Endpoint to login with resgistered user with email and password. We have used bcrypt to compare the password with the hashed password in the database.
+app.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      throw new Error("Invalid Credentials");
+    }
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (isValidPassword) {
+      res.send("Login Successfully");
+    } else {
+      res.send("Invalid Credentials");
+    }
+  } catch (err) {
+    res.status(400).send("ERROR: " + err.message);
+  }
+});
