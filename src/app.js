@@ -3,8 +3,11 @@ const express = require("express"); //we have installed express in our project a
 const app = express();
 const { validateSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("./models/user");
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 app.use(express.json());
 app.post("/signup", async (req, res) => {
   //validation of data
@@ -40,6 +43,11 @@ app.post("/signin", async (req, res) => {
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (isValidPassword) {
+      //Create a JWT Token
+      const token = await jwt.sign({ _id: user._id }, "DEV@Tinder$619");
+      console.log(token);
+      //Add the Token to Cookie and send the response back to the user
+      res.cookie("token", token);
       res.send("Login Successfully");
     } else {
       res.send("Invalid Credentials");
@@ -52,20 +60,27 @@ app.post("/signin", async (req, res) => {
 //Get User by email
 
 app.get("/user", async (req, res) => {
-  const userName = req.body._id;
+  try {
+    const cookies = req.cookies;
+    const { token } = cookies;
 
-  const user = await User.findOne({ _id: userName });
-  res.send(user);
-  // try {
-  //   const user = await User.find({ email: userEmail });
-  //   if (user.length === 0) {
-  //     res.status(404).send("User Not Found");
-  //   } else {
-  //     res.send(user);
-  //   }
-  // } catch (err) {
-  //   res.status(400).send("Something Went Wrong :(");
-  // }
+    if (!token) {
+      throw new Error("Invalid Token");
+    }
+
+    //Validate my Token
+    const decodedMessage = await jwt.verify(token, "DEV@Tinder$619");
+
+    const { _id } = decodedMessage;
+
+    const user = await User.findById(_id);
+    if (!user) {
+      throw new Error("User Not Found");
+    }
+    res.send(user);
+  } catch (err) {
+    res.status(400).send("ERROR: " + err.message);
+  }
 });
 
 //Feed API - GET /feed - get all the users from the DataBase
