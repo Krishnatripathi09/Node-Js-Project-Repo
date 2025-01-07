@@ -420,5 +420,5 @@ and then we can use this jwt to create a token and also we have to specify the p
       res.send("Login Successfully");
 
 
-when we want to read a cookie then we need a middleware (package) known as cookie parser 
-cookie-parser middleware is used in Express.js applications to parse cookies from incoming HTTP requests and make them easily accessible through the req.cookies object.
+when we want to read a cookie then we need a middleware (package) known as cookie parser we have to install the 
+cookie-parser which is a middleware used in Express.js applications to parse cookies from incoming HTTP requests and make them easily accessible through the req.cookies object.
