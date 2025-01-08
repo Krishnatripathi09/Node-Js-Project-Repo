@@ -447,5 +447,17 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);)
 
 # Log-Out Logic
+For a user to Log-out we just need to clear the Cookie inside which the jwt is stored
+In the below code we can either set the cookie as null or we can clear the cookie directly 
+authRouter.post("/logout", async (req, res) => {
+  //   res.cookie("token", null, {
+  //     expires: new Date(Date.now()),
+  //   });
+  //   res.send("Logout Successfully");
+  res.clearCookie("token");
+  res.send("Logout Successfully");
+});
 
-
+# ENUMS(Enumerations)
+Enums are types that contain a limited number of fixed values, as opposed to types like Number or String which can have a wide range of values.
+Enums are helpful if there are a definite number of fixed values for any one variable.
