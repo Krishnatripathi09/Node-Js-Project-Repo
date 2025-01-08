@@ -445,3 +445,7 @@ const requestRouter = require("./routes/request"); // importing the routes
  (app.use("/", authRouter); // then using those routes for routing to particular page
 app.use("/", profileRouter); 
 app.use("/", requestRouter);)
+
+# Log-Out Logic
+
+
