@@ -300,6 +300,9 @@ app.post("/signup", async (req, res) => {
 });
 
 # Creating the POST API
+APIs are mechanisms that enable two software components to communicate with each other using a set of definitions and protocols. For example, the weather bureau’s software system contains daily weather data. The weather app on your phone “talks” to this system via APIs and shows you daily weather updates on your phone.
+
+
 Till now we were hardcoding data in to our post method But Now to handle Dynamic data directly from End-User and
  we have to convert the json data from END-User into readable format we have to convert our json data using app.use(express.json());
 then we can use the data directly in our post method using req.body and it will saved into DB directly if 
@@ -420,5 +423,25 @@ and then we can use this jwt to create a token and also we have to specify the p
       res.send("Login Successfully");
 
 
-when we want to read a cookie then we need a middleware (package) known as cookie parser we have to install the 
+when we want to read a cookie then we need a middleware (package)  we have to install the 
 cookie-parser which is a middleware used in Express.js applications to parse cookies from incoming HTTP requests and make them easily accessible through the req.cookies object.
+
+We created a auth middle ware so all userAuthentcation logic for cookie and JWT was added inside that and whenever we want to hit an API which needs to accessed after authentication there we can add the middle-ware so 
+the request to access the API will be safely routed to authentication middleware before user can access the api
+only after verification whether the user has valid cookie and JWT or not 
+
+# Express Router
+Express Router is a feature of Express.js that allows you to break up your application into smaller, more
+manageable pieces. It's a way to organize our routes and controllers in a more modular and scalable
+way. 
+Now We have created a routes folder in our src folder inside that we have a auth folder in which we will 
+write all the routes for our authentication.
+We have created the route files for authentication, profile and request routes and then we have imported those routes in our app.js and used them for routes to particular page.
+for eg:
+const authRouter = require("./routes/auth"); // importing the routes 
+const profileRouter = require("./routes/profile"); // importing the routes
+const requestRouter = require("./routes/request"); // importing the routes
+
+ (app.use("/", authRouter); // then using those routes for routing to particular page
+app.use("/", profileRouter); 
+app.use("/", requestRouter);)
