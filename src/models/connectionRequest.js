@@ -21,6 +21,14 @@ const connectionRequestSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+connectionRequestSchema.pre("save", function (next) {
+  const connectionRequest = this;
+  //Check if fromUserId is same as toUserId.
+  if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
+    throw new Error("Khud ko hi bhejega Re 😏 ");
+  }
+  next();
+}); // Always use normal function when using pre because Arrow functions do not work for pre
 
 const ConnectionRequestModel = new mongoose.model(
   "ConnectionRequest",
