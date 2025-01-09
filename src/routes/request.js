@@ -11,6 +11,32 @@ requestRouter.post(
       const fromUserId = req.user._id;
       const toUserId = req.params.toUserId;
       const status = req.params.status;
+
+      const allowedStatus = ["ignored", "interested"];
+      if (!allowedStatus.includes(status)) {
+        return res
+          .status(400)
+          .json({ message: "Invalid Status Type: " + status });
+      }
+      //IF there is an existing  Connection Request
+      const existingRequest = await ConnectionRequest.findOne({
+        $or: [
+          {
+            fromUserId,
+            toUserId,
+          },
+          {
+            fromUserId: toUserId,
+            toUserId: fromUserId,
+          },
+        ],
+      });
+      if (existingRequest) {
+        return res
+          .status(400)
+          .send({ message: "Connection request already Present" });
+      }
+
       const connectionRequest = new ConnectionRequest({
         fromUserId,
         toUserId,
@@ -25,8 +51,6 @@ requestRouter.post(
     } catch (err) {
       res.status(400).json("Error : " + err.message);
     }
-
-    res.send("Connection Request Sent");
   }
 );
 
