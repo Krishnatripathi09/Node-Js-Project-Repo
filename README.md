@@ -461,3 +461,5 @@ authRouter.post("/logout", async (req, res) => {
 # ENUMS(Enumerations)
 Enums are types that contain a limited number of fixed values, as opposed to types like Number or String which can have a wide range of values.
 Enums are helpful if there are a definite number of fixed values for any one variable.
+
+# Indexes in DB
