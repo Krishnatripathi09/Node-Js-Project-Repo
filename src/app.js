@@ -2,6 +2,7 @@ const connectDB = require("./config/database");
 const express = require("express"); //we have installed express in our project and it is installed in Node_module so we are importing it from there
 const app = express();
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 //Routers Import
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
@@ -9,6 +10,12 @@ const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 app.use(cookieParser());
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
