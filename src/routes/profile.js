@@ -2,6 +2,7 @@ const { userAuth } = require("../middlewares/auth");
 const { validateProfileEditData } = require("../utils/validation");
 const express = require("express");
 
+
 const profileRouter = express.Router();
 
 profileRouter.get("/profile/view", userAuth, async (req, res) => {

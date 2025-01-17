@@ -37,7 +37,7 @@ scripts ""scripts": {
 
 
 
-We can delete our node_modules folder and we can run command npm install so it will again create
+We can delete our node_modules folder and we can run command __npm install__ so it will again create
 node_modules folder with all the dependencies that our project requires to run. when we run npm install 
 it goes to package.json and checks the dependencies section there it finds express and installs all the 
 dependencies again

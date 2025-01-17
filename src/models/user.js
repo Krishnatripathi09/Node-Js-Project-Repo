@@ -36,12 +36,13 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    photoUrl: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
-
-
-
 
 userSchema.methods.getJWT = async function () {
   const user = this;
